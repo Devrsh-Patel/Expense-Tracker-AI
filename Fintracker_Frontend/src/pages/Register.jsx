@@ -71,7 +71,8 @@ export default function Register() {
       toast.success(`Welcome to FinTracker, ${user.name?.split(' ')[0] || ''}!`)
       navigate(is_new ? '/onboarding' : '/dashboard')
     } catch (err) {
-      toast.error('Google signup failed. Please try again.')
+      const msg = err.response?.data?.error || err.response?.data?.message || err.message || 'Google signup failed. Please try again.'
+      toast.error(msg)
     } finally {
       setGLoading(false)
     }
@@ -83,10 +84,10 @@ export default function Register() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #f0faf4, #fff8f5)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 20px' }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #f0faf4, #fff8f5)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px 16px' }}>
       <div style={{ width: '100%', maxWidth: '460px' }} className="fade-in">
 
-        <div style={{ textAlign: 'center', marginBottom: '28px' }}>
+        <div style={{ textAlign: 'center', marginBottom: '24px' }}>
           <Link to="/" style={{ fontFamily: 'var(--font-display)', fontSize: '28px', fontWeight: '700', textDecoration: 'none' }}>
             <span style={{ color: 'white', background: 'var(--primary)', padding: '2px 8px', borderRadius: '6px' }}>Fin</span>
             <span style={{ color: '#1a73e8', fontWeight: '800' }}>Tracker</span>
@@ -98,14 +99,23 @@ export default function Register() {
           <h2 style={{ fontFamily: 'var(--font-display)', fontSize: '22px', marginBottom: '24px' }}>Sign Up</h2>
 
           {/* Google Button */}
-          <div style={{ marginBottom: '16px', opacity: gLoading ? 0.6 : 1, pointerEvents: gLoading ? 'none' : 'auto' }}>
+          <div style={{
+            marginBottom: '16px',
+            opacity: gLoading ? 0.6 : 1,
+            pointerEvents: gLoading ? 'none' : 'auto',
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            minHeight: '44px'
+          }}>
             <GoogleLogin
-  onSuccess={handleGoogleCredential}
-  onError={() => toast.error('Google login failed!')}
-  width="380"         // ✅ numeric string or number, in px
-  text="signin_with"
-  shape="rectangular"
-/>
+              onSuccess={handleGoogleCredential}
+              onError={() => toast.error('Google signup cancelled or failed!')}
+              width="280"
+              size="large"
+              text="signup_with"
+              shape="rectangular"
+            />
           </div>
 
           {/* Divider */}

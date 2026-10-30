@@ -185,7 +185,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div style={{ padding: '32px' }}>
+    <div className="page-container">
 
       {/* Header */}
       <div style={{ marginBottom: '28px' }}>

@@ -90,7 +90,7 @@ export default function BillSplitter() {
   }
 
   return (
-    <div style={{ padding: '32px' }}>
+    <div className="page-container">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
         <div>
           <h1 className="page-title">Bill Splitter</h1>
@@ -110,7 +110,7 @@ export default function BillSplitter() {
         <div className="card" style={{ padding: '24px', marginBottom: '24px' }}>
           <h3 style={{ fontFamily: 'var(--font-display)', marginBottom: '16px' }}>Create Bill Split</h3>
           <form onSubmit={handleSubmit}>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
               <div className="form-group">
                 <label>Bill Title *</label>
                 <input type="text" value={form.title} onChange={e => setForm(p => ({ ...p, title: e.target.value }))} placeholder="Dinner at restaurant" />

@@ -31,7 +31,7 @@ export default function LandingPage() {
       <div style={{ position: 'relative', zIndex: 10, minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
 
         {/* Sticky Navbar */}
-        <nav style={{
+        <nav className="landing-nav" style={{
           display: 'flex', justifyContent: 'space-between', alignItems: 'center',
           padding: '18px 48px',
           position: 'sticky', top: 0, zIndex: 200,
@@ -48,19 +48,19 @@ export default function LandingPage() {
             <button onClick={() => navigate('/login')} style={{
               background: 'transparent', color: 'rgba(255,255,255,0.85)',
               border: '1.5px solid rgba(255,255,255,0.25)',
-              padding: '10px 28px', borderRadius: '8px',
+              padding: '10px 24px', borderRadius: '8px',
               fontSize: '14px', fontWeight: '500', cursor: 'pointer'
             }}>Sign In</button>
             <button onClick={() => navigate('/register')} style={{
               background: '#e8623a', color: 'white', border: 'none',
-              padding: '10px 28px', borderRadius: '8px',
+              padding: '10px 24px', borderRadius: '8px',
               fontSize: '14px', fontWeight: '700', cursor: 'pointer'
-            }}>Get Started Free</button>
+            }}>Get Started</button>
           </div>
         </nav>
 
         {/* Hero */}
-        <div style={{ flex: 1, padding: '70px 48px 40px', maxWidth: '560px' }}>
+        <div className="landing-hero" style={{ flex: 1, padding: '70px 48px 40px', maxWidth: '560px' }}>
           <div style={{
             display: 'inline-block',
             background: 'rgba(255,255,255,0.08)',
@@ -88,17 +88,17 @@ export default function LandingPage() {
             and understand your spending habits with smart AI-powered insights.
           </p>
 
-          <div style={{ display: 'flex', gap: '14px', marginBottom: '50px' }}>
+          <div style={{ display: 'flex', gap: '14px', marginBottom: '50px', flexWrap: 'wrap' }}>
             <button onClick={() => navigate('/register')} style={{
               background: '#e8623a', color: 'white', border: 'none',
-              padding: '14px 36px', borderRadius: '10px',
+              padding: '14px 32px', borderRadius: '10px',
               fontSize: '15px', fontWeight: '700', cursor: 'pointer'
             }}>Create Free Account</button>
             <button onClick={() => navigate('/login')} style={{
               background: 'rgba(255,255,255,0.08)', color: 'white',
               border: '1.5px solid rgba(255,255,255,0.2)',
-              padding: '14px 36px', borderRadius: '10px',
-              fontSize: '15px', cursor: 'pointer'
+              padding: '14px 32px', borderRadius: '10px',
+              fontSize: '15px', cursor: 'pointer', color: 'white'
             }}>Sign In</button>
           </div>
 
@@ -116,7 +116,7 @@ export default function LandingPage() {
         </div>
 
         {/* Features Section */}
-        <div style={{
+        <div className="landing-section" style={{
           padding: '80px 48px',
           background: 'rgba(0,0,0,0.3)',
           backdropFilter: 'blur(10px)'
@@ -163,7 +163,7 @@ export default function LandingPage() {
         </div>
 
         {/* Testimonials */}
-        <div style={{ padding: '80px 48px', background: 'rgba(0,0,0,0.2)' }}>
+        <div className="landing-section" style={{ padding: '80px 48px', background: 'rgba(0,0,0,0.2)' }}>
           <h2 style={{
             fontFamily: 'var(--font-display)', fontSize: '34px',
             fontWeight: '700', color: 'white', textAlign: 'center', marginBottom: '48px'
@@ -206,7 +206,7 @@ export default function LandingPage() {
         </div>
 
         {/* Stats bar */}
-        <div style={{
+        <div className="landing-stats-bar" style={{
           display: 'flex',
           borderTop: '1px solid rgba(255,255,255,0.08)',
           background: 'rgba(0,0,0,0.3)'
@@ -232,7 +232,7 @@ export default function LandingPage() {
         </div>
 
         {/* Footer */}
-        <footer style={{
+        <footer className="landing-footer" style={{
           background: 'rgba(0,0,0,0.5)',
           borderTop: '1px solid rgba(255,255,255,0.08)',
           padding: '40px 48px'

@@ -75,7 +75,7 @@ export default function ForgotPassword() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #f0faf4, #fff8f5)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 20px' }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #f0faf4, #fff8f5)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px 16px' }}>
       <div style={{ width: '100%', maxWidth: '420px' }} className="fade-in">
 
         <div style={{ textAlign: 'center', marginBottom: '28px' }}>

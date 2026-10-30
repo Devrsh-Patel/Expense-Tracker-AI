@@ -84,7 +84,7 @@ export default function RecurringExpenses() {
   })
 
   return (
-    <div style={{ padding: '32px' }}>
+    <div className="page-container">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
         <div>
           <h1 className="page-title">Recurring Expenses</h1>

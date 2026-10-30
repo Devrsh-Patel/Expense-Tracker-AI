@@ -42,12 +42,13 @@ const NAV_GROUPS = [
   },
 ]
 
-export default function Sidebar({ onCollapse }) {
+export default function Sidebar({ onCollapse, mobileOpen, onCloseMobile }) {
   const { user, logout } = useAuth()
   const navigate = useNavigate()
   const [collapsed, setCollapsed] = useState(false)
 
   const handleLogout = () => {
+    if (onCloseMobile) onCloseMobile()
     const name = user?.name?.split(' ')[0] || 'User'
     navigate('/')
     setTimeout(() => {
@@ -56,22 +57,29 @@ export default function Sidebar({ onCollapse }) {
     }, 100)
   }
 
-  return (
-    <aside style={{
-      width: collapsed ? '70px' : '240px',
-      height: '100vh',
-      background: '#1a1f2e',
-      borderRight: '1px solid rgba(255,255,255,0.06)',
-      display: 'flex',
-      flexDirection: 'column',
-      position: 'fixed',
-      top: 0, left: 0,
-      zIndex: 100,
-      transition: 'width 0.3s ease',
-      overflow: 'hidden'
-    }}>
+  const handleNavClick = () => {
+    if (onCloseMobile) onCloseMobile()
+  }
 
-      {/* Logo */}
+  return (
+    <aside
+      className={`sidebar-drawer ${mobileOpen ? 'open' : ''}`}
+      style={{
+        width: collapsed ? '70px' : '240px',
+        height: '100vh',
+        background: '#1a1f2e',
+        borderRight: '1px solid rgba(255,255,255,0.06)',
+        display: 'flex',
+        flexDirection: 'column',
+        position: 'fixed',
+        top: 0, left: 0,
+        zIndex: 1000,
+        transition: 'width 0.3s ease, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+        overflow: 'hidden'
+      }}
+    >
+
+      {/* Logo & Header Controls */}
       <div style={{
         padding: '20px 16px',
         borderBottom: '1px solid rgba(255,255,255,0.07)',
@@ -85,24 +93,46 @@ export default function Sidebar({ onCollapse }) {
             <span style={{ color: '#e8623a', fontWeight: '800' }}>Tracker</span>
           </span>
         )}
-        <button
-          onClick={() => {
-            const newState = !collapsed
-            setCollapsed(newState)
-            if (onCollapse) onCollapse(newState)
-          }}
-          style={{
-            background: 'rgba(255,255,255,0.08)',
-            border: 'none', borderRadius: '6px',
-            width: '28px', height: '28px',
-            cursor: 'pointer', fontSize: '13px',
-            color: 'rgba(255,255,255,0.7)',
-            marginLeft: collapsed ? 'auto' : '0',
-            display: 'flex', alignItems: 'center', justifyContent: 'center'
-          }}
-        >
-          {collapsed ? '→' : '←'}
-        </button>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginLeft: collapsed ? 'auto' : '0' }}>
+          <button
+            onClick={() => {
+              const newState = !collapsed
+              setCollapsed(newState)
+              if (onCollapse) onCollapse(newState)
+            }}
+            className="sidebar-collapse-btn"
+            style={{
+              background: 'rgba(255,255,255,0.08)',
+              border: 'none', borderRadius: '6px',
+              width: '28px', height: '28px',
+              cursor: 'pointer', fontSize: '13px',
+              color: 'rgba(255,255,255,0.7)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center'
+            }}
+            title={collapsed ? 'Expand' : 'Collapse'}
+          >
+            {collapsed ? '→' : '←'}
+          </button>
+
+          {onCloseMobile && (
+            <button
+              onClick={onCloseMobile}
+              className="sidebar-mobile-close-btn"
+              style={{
+                background: 'rgba(255,255,255,0.08)',
+                border: 'none', borderRadius: '6px',
+                width: '28px', height: '28px',
+                cursor: 'pointer', fontSize: '14px',
+                color: 'rgba(255,255,255,0.7)',
+                display: 'none', alignItems: 'center', justifyContent: 'center'
+              }}
+              title="Close Menu"
+            >
+              ✕
+            </button>
+          )}
+        </div>
       </div>
 
       {/* User Info */}
@@ -158,6 +188,7 @@ export default function Sidebar({ onCollapse }) {
               <NavLink
                 key={item.path}
                 to={item.path}
+                onClick={handleNavClick}
                 style={({ isActive }) => ({
                   display: 'flex', alignItems: 'center',
                   gap: '10px', padding: '10px 12px',
@@ -195,6 +226,7 @@ export default function Sidebar({ onCollapse }) {
             )}
             <NavLink
               to="/admin"
+              onClick={handleNavClick}
               style={({ isActive }) => ({
                 display: 'flex', alignItems: 'center',
                 gap: '10px', padding: '10px 12px',

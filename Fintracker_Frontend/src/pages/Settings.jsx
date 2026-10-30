@@ -144,14 +144,14 @@ export default function Settings() {
   ]
 
   return (
-    <div style={{ padding: '32px', maxWidth: '960px' }}>
+    <div className="page-container" style={{ maxWidth: '960px' }}>
       <h1 className="page-title">Settings</h1>
       <p className="page-subtitle">Manage your account and preferences</p>
 
-      <div style={{ display: 'flex', gap: '24px', marginTop: '24px' }}>
+      <div className="settings-layout" style={{ display: 'flex', gap: '24px', marginTop: '24px' }}>
 
         {/* Left Menu */}
-        <div style={{ width: '210px', flexShrink: 0 }}>
+        <div className="settings-menu" style={{ width: '210px', flexShrink: 0 }}>
           <div className="card" style={{ padding: '8px' }}>
             {sections.map(s => (
               <button key={s.id} onClick={() => setActiveSection(s.id)} style={{
@@ -171,7 +171,7 @@ export default function Settings() {
         </div>
 
         {/* Right Content */}
-        <div style={{ flex: 1 }}>
+        <div className="settings-content" style={{ flex: 1, minWidth: 0 }}>
 
           {/* ── PROFILE ── */}
           {activeSection === 'profile' && (
@@ -469,7 +469,7 @@ export default function Settings() {
                   cursor: 'pointer', transition: 'all 0.2s', background: 'white'
                 }}>
                   <span style={{ fontSize: '28px' }}>{item.icon}</span>
-                  <div style={{ flex: 1 }}>
+                  <div className="settings-content" style={{ flex: 1, minWidth: 0 }}>
                     <p style={{ fontWeight: '600', fontSize: '14px' }}>{item.label}</p>
                     <p style={{ color: 'var(--text-light)', fontSize: '12px', marginTop: '3px' }}>{item.desc}</p>
                   </div>

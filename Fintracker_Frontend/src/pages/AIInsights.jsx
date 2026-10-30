@@ -34,7 +34,7 @@ export default function AIInsights() {
   }
 
   return (
-    <div style={{ padding: '32px' }}>
+    <div className="page-container">
       <div style={{ marginBottom: '28px' }}>
         <h1 className="page-title">AI Insights</h1>
         <p className="page-subtitle">Smart analysis of your spending habits</p>

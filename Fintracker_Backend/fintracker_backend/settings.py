@@ -194,6 +194,19 @@ else:
     ]
 
 CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r'^https:\/\/.*\.vercel\.app$',
+]
+
+# Always ensure deployed domains & Vercel previews are trusted for CSRF
+for origin in [
+    'https://*.vercel.app',
+    'https://*.onrender.com',
+    'https://expense-tracker-ai-red-ten.vercel.app',
+    'https://expense-tracker-ai-kvpj.onrender.com'
+]:
+    if origin not in CSRF_TRUSTED_ORIGINS:
+        CSRF_TRUSTED_ORIGINS.append(origin)
 
 # Production SSL and Cookie Security
 if not DEBUG:

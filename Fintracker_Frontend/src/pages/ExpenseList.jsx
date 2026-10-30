@@ -85,7 +85,7 @@ export default function ExpenseList() {
   const totalFiltered = filtered.reduce((sum, e) => sum + parseFloat(e.amount || 0), 0)
 
   return (
-    <div style={{ padding: '32px' }}>
+    <div className="page-container">
 
       {/* Receipt Modal */}
       {viewReceipt && (
@@ -359,7 +359,7 @@ export default function ExpenseList() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
           {filtered.map(exp => (
             <div key={exp.id} className="card" style={{ padding: '16px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flex: 1 }}>
 
                   {/* Category Box */}
@@ -404,7 +404,7 @@ export default function ExpenseList() {
                   </div>
                 </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginLeft: '12px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginLeft: 'auto', flexShrink: 0 }}>
                   <p style={{ fontWeight: '700', color: '#e74c3c', fontSize: '15px', whiteSpace: 'nowrap' }}>
                     -{formatCurrency(exp.amount)}
                   </p>

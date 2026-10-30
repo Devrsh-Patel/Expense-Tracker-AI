@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db.models import Sum
 from rest_framework import status
 from rest_framework.views import APIView
@@ -318,8 +319,31 @@ class GoogleLoginView(APIView):
                     )
 
 
-            email = idinfo.get('email') or email
-            name  = idinfo.get('name')  or name or email.split('@')[0]
+            # Security: Validate audience if present (for ID tokens)
+            configured_client_id = getattr(settings, 'GOOGLE_CLIENT_ID', None)
+            allowed_audiences = [
+                configured_client_id,
+                '850039016777-39qteri60cjk6983luhtf31fbpim1gdl.apps.googleusercontent.com',
+                '850039016777-sdi5kq6nhiemejcrg1nmtst1b8tnfso8.apps.googleusercontent.com'
+            ]
+            allowed_audiences = [a for a in allowed_audiences if a]
+
+            token_aud = idinfo.get('aud')
+            if token_aud and token_aud not in allowed_audiences:
+                return Response(
+                    {'error': 'Invalid token audience.'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
+            # Security: Ensure email is verified by Google
+            if idinfo.get('email_verified') in [False, 'false', '0']:
+                return Response(
+                    {'error': 'Google account email is not verified.'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
+            email = idinfo.get('email')
+            name  = idinfo.get('name') or (email.split('@')[0] if email else 'User')
 
             if not email:
                 return Response(

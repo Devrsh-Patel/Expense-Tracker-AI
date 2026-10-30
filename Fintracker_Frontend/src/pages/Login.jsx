@@ -72,8 +72,9 @@ export default function Login() {
       const onboarded = localStorage.getItem(`fintracker_onboarded_${user.id}`) === 'true'
       navigate(onboarded ? '/dashboard' : '/onboarding')
 
-    } catch {
-      toast.error('Google login failed. Please try again.')
+    } catch (err) {
+      const msg = err.response?.data?.error || err.response?.data?.message || err.message || 'Google login failed. Please try again.'
+      toast.error(msg)
     } finally {
       setGLoading(false)
     }
@@ -85,10 +86,10 @@ export default function Login() {
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #f0faf4, #fff8f5)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 20px' }}>
+    <div style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #f0faf4, #fff8f5)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px 16px' }}>
       <div style={{ width: '100%', maxWidth: '400px' }} className="fade-in">
 
-        <div style={{ textAlign: 'center', marginBottom: '28px' }}>
+        <div style={{ textAlign: 'center', marginBottom: '24px' }}>
           <Link to="/" style={{ fontFamily: 'var(--font-display)', fontSize: '28px', fontWeight: '700', textDecoration: 'none' }}>
             <span style={{ color: 'white', background: 'var(--primary)', padding: '2px 8px', borderRadius: '6px' }}>Fin</span>
             <span style={{ color: '#1a73e8', fontWeight: '800' }}>Tracker</span>
@@ -154,15 +155,23 @@ export default function Login() {
             <div style={{ flex: 1, height: '1px', background: 'var(--border)' }} />
           </div>
 
-          {/* Google Login Button — same ID-token component as Register.jsx */}
-          <div style={{ opacity: gLoading ? 0.6 : 1, pointerEvents: gLoading ? 'none' : 'auto' }}>
+          {/* Google Login Button */}
+          <div style={{
+            opacity: gLoading ? 0.6 : 1,
+            pointerEvents: gLoading ? 'none' : 'auto',
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            minHeight: '44px'
+          }}>
             <GoogleLogin
-  onSuccess={handleGoogleCredential}
-  onError={() => toast.error('Google login failed!')}
-  width="336"         // ✅ matching card inner width
-  text="signin_with"
-  shape="rectangular"
-/>
+              onSuccess={handleGoogleCredential}
+              onError={() => toast.error('Google login cancelled or failed!')}
+              text="signin_with"
+              shape="rectangular"
+              size="large"
+              width="280"
+            />
           </div>
 
           <p style={{ textAlign: 'center', marginTop: '18px', fontSize: '14px', color: 'var(--text-mid)' }}>

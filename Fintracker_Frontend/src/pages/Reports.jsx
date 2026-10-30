@@ -66,7 +66,7 @@ export default function Reports() {
   }
 
   return (
-    <div style={{ padding: '32px' }}>
+    <div className="page-container">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
         <div>
           <h1 className="page-title">Reports</h1>
@@ -170,7 +170,7 @@ export default function Reports() {
               <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '16px', marginBottom: '16px' }}>
                 All Transactions
               </h3>
-              <div style={{ overflowX: 'auto' }}>
+              <div className="table-responsive">
                 <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
                   <thead>
                     <tr style={{ background: '#f9f9f9' }}>

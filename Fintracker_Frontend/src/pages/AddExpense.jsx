@@ -181,7 +181,7 @@ export default function AddExpense() {
   }
 
   return (
-    <div style={{ padding: '32px' }}>
+    <div className="page-container">
       <h1 className="page-title">Add Expense</h1>
       <p className="page-subtitle">Record a new expense to your tracker</p>
 

@@ -122,7 +122,7 @@ export default function BudgetPlanner() {
   const totalSpent  = budgets.reduce((sum, b) => sum + parseFloat(b.spent_amount || 0), 0)
 
   return (
-    <div style={{ padding: '32px' }}>
+    <div className="page-container">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
         <div>
           <h1 className="page-title">Budget Planner</h1>

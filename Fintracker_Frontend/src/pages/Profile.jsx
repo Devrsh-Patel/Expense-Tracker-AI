@@ -45,7 +45,7 @@ export default function Profile() {
   }
 
   return (
-    <div style={{ padding: '32px' }}>
+    <div className="page-container">
       <h1 className="page-title">My Profile</h1>
       <p className="page-subtitle">Manage your account settings</p>
 
@@ -74,7 +74,7 @@ export default function Profile() {
           Personal Information
         </h3>
         <form onSubmit={handleUpdate}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}>
             <div className="form-group">
               <label>Full Name</label>
               <input type="text" value={form.name} onChange={handleChange('name')} />
