@@ -101,6 +101,12 @@ else:
         ssl_ca = os.getenv('DB_SSL_CA')
         if ssl_ca:
             db_options['ssl'] = {'ca': ssl_ca}
+        else:
+            try:
+                import certifi
+                db_options['ssl'] = {'ca': certifi.where()}
+            except ImportError:
+                pass
         DATABASES = {
             'default': {
                 'ENGINE': DB_ENGINE,

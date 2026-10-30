@@ -22,3 +22,4 @@ services:
         value: "https://your-frontend-app.vercel.app,http://localhost:5173"
       - key: CSRF_TRUSTED_ORIGINS
         value: "https://your-frontend-app.vercel.app,https://fintracker-backend.onrender.com"
+

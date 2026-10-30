@@ -24,3 +24,4 @@ def root_api(request):
         "documentation": "/swagger/",
         "health": "/api/health/"
     })
+
