@@ -19,6 +19,12 @@ class ExpenseSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ['user', 'created_at']
 
+    def validate_date(self, value):
+        from datetime import date
+        if value and value > date.today():
+            raise serializers.ValidationError("Expense date cannot be in the future.")
+        return value
+
     def get_category_name(self, obj):
         if obj.custom_category:
             return obj.custom_category.name
