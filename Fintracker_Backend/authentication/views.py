@@ -321,15 +321,10 @@ class GoogleLoginView(APIView):
 
             # Security: Validate audience if present (for ID tokens)
             configured_client_id = getattr(settings, 'GOOGLE_CLIENT_ID', None)
-            allowed_audiences = [
-                configured_client_id,
-                '850039016777-39qteri60cjk6983luhtf31fbpim1gdl.apps.googleusercontent.com',
-                '850039016777-sdi5kq6nhiemejcrg1nmtst1b8tnfso8.apps.googleusercontent.com'
-            ]
-            allowed_audiences = [a for a in allowed_audiences if a]
+            allowed_audiences = [a for a in [configured_client_id] if a]
 
             token_aud = idinfo.get('aud')
-            if token_aud and token_aud not in allowed_audiences:
+            if token_aud and allowed_audiences and token_aud not in allowed_audiences:
                 return Response(
                     {'error': 'Invalid token audience.'},
                     status=status.HTTP_400_BAD_REQUEST

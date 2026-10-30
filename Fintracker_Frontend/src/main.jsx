@@ -9,7 +9,7 @@ import { ExpenseProvider } from './context/ExpenseContext'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import { BrowserRouter } from 'react-router-dom'
 
-const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || '850039016777-39qteri60cjk6983luhtf31fbpim1gdl.apps.googleusercontent.com'
+const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || '693085862771-44s1rmihq7g0n57rar4kb05eje4mjv9c.apps.googleusercontent.com'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
