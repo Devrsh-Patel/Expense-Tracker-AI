@@ -5,6 +5,7 @@ from django.conf.urls.static import static
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from .views import health_check, root_api
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -18,6 +19,9 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
+    path('',              root_api,     name='root-api'),
+    path('health/',       health_check, name='health-check-root'),
+    path('api/health/',   health_check, name='health-check'),
     path('admin/',        admin.site.urls),
     path('api/auth/',     include('authentication.urls')),
     path('api/expenses/', include('expenses.urls')),

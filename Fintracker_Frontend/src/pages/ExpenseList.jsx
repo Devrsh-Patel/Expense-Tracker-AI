@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { useExpense } from '../context/ExpenseContext'
 import { formatCurrency, getStoredCurrency, CURRENCY_CONFIG } from '../utils/currency'
+import { API_HOST } from '../services/api'
 
 
 export default function ExpenseList() {
@@ -240,7 +241,7 @@ export default function ExpenseList() {
                 <div className="form-group">
                   <label>Existing Receipt</label>
                   <button type="button"
-                    onClick={() => setViewReceipt({ type: 'file', url: `http://127.0.0.1:8000${editExpenseData.receipt_url}` })}
+                    onClick={() => setViewReceipt({ type: 'file', url: `${API_HOST}${editExpenseData.receipt_url}` })}
                     style={{
                       background: '#f0faf4', border: '1px solid #c6f0d8',
                       color: 'var(--primary)', padding: '8px 16px',
@@ -382,7 +383,7 @@ export default function ExpenseList() {
 
                     <div style={{ display: 'flex', gap: '8px', marginTop: '6px' }}>
                       {exp.receipt_url && (
-                        <button onClick={() => setViewReceipt({ type: 'file', url: `http://127.0.0.1:8000${exp.receipt_url}` })} style={{
+                        <button onClick={() => setViewReceipt({ type: 'file', url: `${API_HOST}${exp.receipt_url}` })} style={{
                           background: '#f0faf4', border: '1px solid #c6f0d8',
                           color: 'var(--primary)', padding: '3px 10px',
                           borderRadius: '6px', fontSize: '11px', cursor: 'pointer', fontWeight: '600'

@@ -94,3 +94,47 @@ To retrain the expense prediction model:
 python train_model.py
 ```
 Models will be saved to `Fintracker_Backend/insights/models/`.
+
+---
+
+## ☁️ Cloud Deployment Guide (Free Tier)
+
+### 1. Database Setup (Free MySQL via TiDB Cloud / Aiven)
+1. Sign up on **[TiDB Cloud](https://tidb.cloud/)** (Serverless Free Tier, 25 GB storage, 100% MySQL 8 compatible).
+2. Create a free cluster and obtain your MySQL connection details:
+   - Host, Port (default `4000`), User, Password, Database (`fintracker_db`).
+
+### 2. Backend Deployment (Render Free Web Service)
+1. Sign in to **[Render](https://render.com/)** using your GitHub account (`Devrsh-Patel`).
+2. Click **New +** -> **Web Service** -> Connect `Devrsh-Patel/Expense-Tracker-AI-`.
+3. Set the following options:
+   - **Root Directory**: `Fintracker_Backend`
+   - **Environment**: `Python 3`
+   - **Build Command**: `chmod +x build.sh && ./build.sh`
+   - **Start Command**: `gunicorn fintracker_backend.wsgi:application --bind 0.0.0.0:$PORT --workers 2`
+   - **Plan**: `Free`
+4. In **Environment Variables**, add:
+   - `DEBUG`: `False`
+   - `SECRET_KEY`: `<generate-a-secure-random-key>`
+   - `ALLOWED_HOSTS`: `.onrender.com,localhost,127.0.0.1`
+   - `DB_ENGINE`: `django.db.backends.mysql`
+   - `DB_NAME`: `<your_db_name>`
+   - `DB_USER`: `<your_db_user>`
+   - `DB_PASSWORD`: `<your_db_password>`
+   - `DB_HOST`: `<your_db_host>`
+   - `DB_PORT`: `4000` (or `3306`)
+   - `CORS_ALLOWED_ORIGINS`: `https://<your-frontend-app>.vercel.app,http://localhost:5173`
+   - `CSRF_TRUSTED_ORIGINS`: `https://<your-frontend-app>.vercel.app,https://<your-backend-app>.onrender.com`
+5. Click **Create Web Service**. Render runs migrations and serves the API at `https://<your-backend-app>.onrender.com`.
+
+### 3. Frontend Deployment (Vercel Free Tier)
+1. Sign in to **[Vercel](https://vercel.com/)** using your GitHub account (`Devrsh-Patel`).
+2. Click **Add New...** -> **Project** -> Import `Devrsh-Patel/Expense-Tracker-AI-`.
+3. Set:
+   - **Root Directory**: `Fintracker_Frontend`
+   - **Framework Preset**: `Vite`
+4. Under **Environment Variables**, add:
+   - `VITE_API_URL`: `https://<your-backend-app>.onrender.com`
+5. Click **Deploy**. Vercel will build and provide your live frontend URL (e.g., `https://expense-tracker-ai.vercel.app`).
+
+

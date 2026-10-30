@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
-import { authAPI } from '../services/api'
+import { authAPI, API_HOST } from '../services/api'
 import { toast } from 'react-toastify'
 import { formatCurrency } from '../utils/currency'
 
@@ -154,8 +154,8 @@ export default function AdminDashboard() {
         {/* Quick Links */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '12px', marginTop: '24px' }}>
           {[
-            { label: 'Django Admin', icon: '⚙️', url: 'http://127.0.0.1:8000/admin/' },
-            { label: 'API Docs',     icon: '📄', url: 'http://127.0.0.1:8000/swagger/' },
+            { label: 'Django Admin', icon: '⚙️', url: `${API_HOST}/admin/` },
+            { label: 'API Docs',     icon: '📄', url: `${API_HOST}/swagger/` },
           ].map(link => (
             <a key={link.label} href={link.url} target="_blank" rel="noreferrer" style={{
               padding: '16px', border: '2px solid var(--border)', borderRadius: '12px',

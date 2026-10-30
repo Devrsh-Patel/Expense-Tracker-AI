@@ -39,4 +39,8 @@ Thumbs.db
 *.njsproj
 *.sln
 *.sw?
+staticfiles/
+*/staticfiles/
 *.bak
+
+
