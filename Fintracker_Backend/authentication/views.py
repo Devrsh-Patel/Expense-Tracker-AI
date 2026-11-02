@@ -288,7 +288,7 @@ class GoogleLoginView(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request):
-        token = request.data.get('token')
+        token = request.data.get('token') or request.data.get('credential')
         email = request.data.get('email')
         name  = request.data.get('name')
 
@@ -301,14 +301,14 @@ class GoogleLoginView(APIView):
         try:
             # Try validating as Google ID Token first
             google_url = f'https://oauth2.googleapis.com/tokeninfo?id_token={token}'
-            response = http_requests.get(google_url)
+            response = http_requests.get(google_url, timeout=10)
             idinfo = response.json()
 
             # If that fails, fallback to validating as access token via userinfo
             if 'error' in idinfo or 'error_description' in idinfo:
                 google_url_acc = 'https://www.googleapis.com/oauth2/v3/userinfo'
                 headers = {'Authorization': f'Bearer {token}'}
-                response_acc = http_requests.get(google_url_acc, headers=headers)
+                response_acc = http_requests.get(google_url_acc, headers=headers, timeout=10)
                 idinfo_acc = response_acc.json()
                 if 'error' not in idinfo_acc:
                     idinfo = idinfo_acc

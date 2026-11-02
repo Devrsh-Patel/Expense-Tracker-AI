@@ -1,0 +1,10 @@
+{
+  "buildCommand": "cd Fintracker_Frontend && npm run build",
+  "outputDirectory": "Fintracker_Frontend/dist",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
